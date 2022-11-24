@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -53,7 +54,7 @@ class HippodromeTest {
             horses.add(new Horse("Horse " + i, 1 + i));
         }
         Hippodrome hippodrome = new Hippodrome(horses);
-        assertEquals(horses, hippodrome.getHorses());
+        Assertions.assertEquals(horses, hippodrome.getHorses());
     }
 
     @Test
@@ -79,6 +80,6 @@ class HippodromeTest {
         Hippodrome hippodrome = new Hippodrome(horses);
         Horse horse = horses.stream().max(Comparator.comparing(Horse::getDistance))
                 .get();
-        assertEquals(horse,hippodrome.getWinner());
+        Assertions.assertEquals(horse,hippodrome.getWinner());
     }
 }

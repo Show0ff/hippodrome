@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -48,17 +47,16 @@ class HorseTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "   "})
     void firstParameterOfHorseNotEmpty(String expected) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Horse(expected, 10);
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+            new Horse(expected, 10)
+        );
     }
 
     @Test
     void secondParameterOfHorseIsNotNegative() {
         assertThrows(IllegalArgumentException.class, () ->
-        {
-            new Horse("Perun", -1);
-        });
+            new Horse("Perun", -1)
+        );
     }
 
     @Test
@@ -75,7 +73,7 @@ class HorseTest {
     @Test
     void thirdParameterOfHorseIsNotNegative() {
         assertThrows(IllegalArgumentException.class, () ->
-            new Horse("Perun", 1, -1));
+                new Horse("Perun", 1, -1));
     }
 
     @Test
@@ -94,48 +92,48 @@ class HorseTest {
     void getName() {
         Horse horse = new Horse("Perun", 1);
         String name = horse.getName();
-        assertEquals("Perun",name);
+        assertEquals("Perun", name);
     }
 
     @Test
     void getSpeed() {
         Horse horse = new Horse("Perun", 1);
         double speed = horse.getSpeed();
-        assertEquals(1,speed);
+        assertEquals(1, speed);
     }
 
     @Test
     void getDistance() {
         Horse horse = new Horse("Perun", 1, 10);
         double distance = horse.getDistance();
-        assertEquals(10,distance);
+        assertEquals(10, distance);
     }
 
     @Test
     void getDistanceWhenWithoutDistance() {
         Horse horse = new Horse("Perun", 1);
         double distance = horse.getDistance();
-        assertEquals(0,distance);
+        assertEquals(0, distance);
     }
 
     @Test
     void getRandomDoubleFromMove() {
-        try(MockedStatic<Horse> mockedStatic = Mockito.mockStatic(Horse.class)) {
-            new Horse("Perun",1,5).move();
+        try (MockedStatic<Horse> mockedStatic = Mockito.mockStatic(Horse.class)) {
+            new Horse("Perun", 1, 5).move();
 
-            mockedStatic.verify(() -> Horse.getRandomDouble(0.2,0.9));
+            mockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
 
         }
     }
 
     @Test
     void getRandomDoubleFromMoveExpressionCheck() {
-        try(MockedStatic<Horse> mockedStatic = Mockito.mockStatic(Horse.class)) {
+        try (MockedStatic<Horse> mockedStatic = Mockito.mockStatic(Horse.class)) {
             Horse horse = new Horse("Perun", 1);
-            mockedStatic.when( () -> Horse.getRandomDouble(ArgumentMatchers.anyDouble(), ArgumentMatchers.anyDouble())).thenReturn(4.5);
+            mockedStatic.when(() -> Horse.getRandomDouble(ArgumentMatchers.anyDouble(), ArgumentMatchers.anyDouble())).thenReturn(4.5);
             horse.move();
             double actual = horse.getDistance();
-            assertEquals(4.5,actual);
+            assertEquals(4.5, actual);
 
         }
     }
